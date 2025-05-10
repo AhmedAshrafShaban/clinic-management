@@ -37,15 +37,6 @@
                 <button type="submit" class="btn btn-primary">Add Patient</button>
             </form>
         </div>
-
-        <!-- Patient List Section -->
-        <div class="mt-5">
-            <h3>Patient List</h3>
-            <button class="btn btn-info" onclick="getPatients()">Show Patients</button>
-            <ul id="patientList" class="list-group mt-3">
-                <!-- Patient list will be populated here -->
-            </ul>
-        </div>
     </div>
 
     <script>
@@ -71,24 +62,6 @@
             objectStore.add(patient);
         }
 
-        // استرجاع بيانات من IndexedDB
-        function getPatients() {
-            const transaction = db.transaction(["patients"], "readonly");
-            const objectStore = transaction.objectStore("patients");
-            const request = objectStore.getAll();
-            request.onsuccess = function(event) {
-                const patients = event.target.result;
-                const patientList = document.getElementById("patientList");
-                patientList.innerHTML = '';
-                patients.forEach(patient => {
-                    const li = document.createElement("li");
-                    li.className = "list-group-item";
-                    li.textContent = `Name: ${patient.name}, Phone: ${patient.phone}, Last Visit: ${patient.lastVisit}, Diagnosis: ${patient.diagnosis}, Total Paid: ${patient.totalPaid}`;
-                    patientList.appendChild(li);
-                });
-            };
-        }
-
         // التعامل مع إضافة مريض جديد
         document.getElementById("patientForm").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -101,6 +74,9 @@
             };
             addPatient(newPatient);
             this.reset();
+
+            // بعد إضافة المريض، التوجه إلى صفحة عرض المرضى
+            window.location.href = "patient-list.html"; // يوجه إلى صفحة عرض المرضى
         });
     </script>
 
@@ -108,4 +84,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
