@@ -67,10 +67,6 @@
       const totalPaid = parseFloat(document.getElementById("totalPaid").value);
       const remaining = parseFloat(document.getElementById("remaining").value);
 
-      if (!/^\d{11}$/.test(phone)) {
-        alert("رقم الهاتف يجب أن يحتوي على 11 رقمًا.");
-        return;
-      }
 
       const newPatient = { name, phone, lastVisit, diagnosis, totalPaid, remaining };
       patients.push(newPatient);
